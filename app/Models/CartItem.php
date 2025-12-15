@@ -4,13 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CartItem extends Model
 {
-    protected $fillable = ['cart_id', 'product_id', 'quantity', 'unit_price'];
+    use HasFactory;
+
+    protected $fillable = [
+        'cart_id',
+        'product_id',
+        'quantity',
+        'unit_price',
+        'total_price'
+    ];
 
     protected $casts = [
-        'unit_price' => 'decimal:2'
+        'unit_price' => 'decimal:2',
+        'total_price' => 'decimal:2'
     ];
 
     public function cart(): BelongsTo

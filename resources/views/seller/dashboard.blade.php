@@ -17,7 +17,7 @@
         <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-sm p-6 text-white">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-2xl font-bold mb-2">Welcome back, {{ auth()->user()->full_name }}!</h2>
+                    <h2 class="text-2xl font-bold mb-2">Welcome back, {{ auth()->user()->name }}!</h2>
                     <p class="text-green-100">Manage your organic products and track your sales performance</p>
                 </div>
                 <div class="p-3 bg-white/20 rounded-lg">
@@ -214,7 +214,7 @@
                                 <div>
                                     <span class="font-medium text-gray-900">Order
                                         #{{ str_pad($orderItem->order_id, 6, '0', STR_PAD_LEFT) }}</span>
-                                    <p class="text-sm text-gray-500">{{ $orderItem->order->customer->full_name }}</p>
+                                    <p class="text-sm text-gray-500">{{ $orderItem->order->customer->name }}</p>
                                 </div>
                                 @php
                                     $statusColors = [

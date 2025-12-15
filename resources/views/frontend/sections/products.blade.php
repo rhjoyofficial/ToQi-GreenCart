@@ -1,115 +1,105 @@
-<section class="py-12 bg-gray-50">
-    <div class="max-w-8xl mx-auto px-4">
-        <div class="flex justify-between items-center mb-8">
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-12">
             <div>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Featured Products</h2>
-                <p class="text-gray-600 mt-2">Handpicked products just for you</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Featured Products</h2>
+                <p class="text-gray-600">Best selling products this week</p>
             </div>
-            <a href="{{ url('/products') }}" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center">
-                View All <i class="fas fa-arrow-right ml-2"></i>
-            </a>
+            <div class="mt-4 md:mt-0">
+                <div class="flex space-x-2">
+                    <button
+                        class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                        All
+                    </button>
+                    <button
+                        class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                        New Arrivals
+                    </button>
+                    <button
+                        class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                        Best Sellers
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             @foreach ($products as $product)
-                <div class="product-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+                <div
+                    class="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden animate-slide-up">
                     <!-- Product Image -->
-                    <div class="relative overflow-hidden">
-                        @php
-                            $primaryImage =
-                                $product->images->where('is_primary', true)->first() ?? $product->images->first();
-                        @endphp
-                        <img src="{{ $primaryImage ? $primaryImage->image_url : 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' }}"
+                    <div class="relative overflow-hidden aspect-square">
+                        <img src="{{ $product->image ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' }}"
                             alt="{{ $product->name }}"
-                            class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110">
-
-                        <!-- Badges -->
-                        <div class="absolute top-3 left-3">
-                            @if ($product->stock_quantity > 0)
-                                <span class="bg-green-500 text-white text-xs px-2 py-1 rounded">In Stock</span>
-                            @else
-                                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">Out of Stock</span>
-                            @endif
-                        </div>
-
-                        <!-- Wishlist Button -->
-                        <button
-                            class="absolute top-3 right-3 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-colors duration-300">
-                            <i class="far fa-heart text-gray-600 hover:text-red-500"></i>
-                        </button>
-                    </div>
-
-                    <!-- Product Details -->
-                    <div class="p-4">
-                        <!-- Category -->
-                        @if ($product->category)
-                            <span class="text-xs text-blue-600 font-medium">
-                                {{ $product->category->name }}
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <!-- Badge -->
+                        @if ($product->stock_quantity > 0)
+                            <span
+                                class="absolute top-4 left-4 bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                In Stock
+                            </span>
+                        @else
+                            <span
+                                class="absolute top-4 left-4 bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full">
+                                Out of Stock
                             </span>
                         @endif
+                        <!-- Quick Actions -->
+                        <div
+                            class="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button
+                                class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-200">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button
+                                class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-200">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
 
-                        <!-- Product Name -->
-                        <h3
-                            class="text-lg font-semibold text-gray-900 mt-1 mb-2 hover:text-blue-600 transition-colors duration-300">
-                            <a href="{{ url('/product/' . $product->id) }}">
-                                {{ Str::limit($product->name, 40) }}
-                            </a>
-                        </h3>
-
-                        <!-- Description -->
-                        @if ($product->description)
-                            <p class="text-sm text-gray-600 mb-3">
-                                {{ Str::limit($product->description, 60) }}
-                            </p>
-                        @endif
-
-                        <!-- Price -->
-                        <div class="flex items-center justify-between mb-4">
-                            <div>
-                                <span
-                                    class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
-                                @if ($product->price > 100)
-                                    <span
-                                        class="text-sm text-gray-500 line-through ml-2">${{ number_format($product->price * 1.2, 2) }}</span>
-                                @endif
-                            </div>
+                    <!-- Product Info -->
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm text-gray-500">{{ $product->category->name ?? 'Uncategorized' }}</span>
                             <div class="flex items-center">
-                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
                                 <span class="text-sm text-gray-600 ml-1">4.5</span>
                             </div>
                         </div>
 
-                        <!-- Add to Cart Button -->
-                        <button
-                            class="add-to-cart w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-all duration-300 flex items-center justify-center"
-                            data-product-id="{{ $product->id }}"
-                            {{ $product->stock_quantity <= 0 ? 'disabled' : '' }}>
-                            @if ($product->stock_quantity > 0)
-                                <i class="fas fa-shopping-cart mr-2"></i>
-                                Add to Cart
-                            @else
-                                Out of Stock
-                            @endif
-                        </button>
+                        <h3 class="font-semibold text-gray-900 mb-2 line-clamp-1">{{ $product->name }}</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ $product->description }}</p>
+
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-xl font-bold text-gray-900"><span
+                                        class="font-bengali">৳</span>{{ number_format($product->price, 2) }}</span>
+                                @if ($product->price > 50)
+                                    <span class="text-sm text-gray-500 line-through ml-2"><span
+                                            class="font-bengali">৳</span>{{ number_format($product->price * 1.2, 2) }}</span>
+                                @endif
+                            </div>
+                            <button data-product-id="{{ $product->id }}"
+                                class="add-to-cart flex items-center justify-center w-10 h-10 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                {{ $product->stock_quantity == 0 ? 'disabled' : '' }}>
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             @endforeach
         </div>
 
-        @if ($products->isEmpty())
-            <div class="text-center py-12">
-                <i class="fas fa-shopping-bag text-4xl text-gray-300 mb-4"></i>
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">No Products Available</h3>
-                <p class="text-gray-500">Check back later for new arrivals</p>
-            </div>
-        @endif
-
-        <!-- Pagination -->
-        @if (method_exists($products, 'hasPages') && $products->hasPages())
-            <div class="mt-12 flex justify-center">
-                {{ $products->links() }}
-            </div>
-        @endif
-
+        <!-- View All Products Button -->
+        <div class="text-center mt-12">
+            <a href="#"
+                class="inline-flex items-center px-8 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors duration-200 shadow-lg hover:shadow-xl">
+                <span>View All Products</span>
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
     </div>
 </section>

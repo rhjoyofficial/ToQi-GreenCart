@@ -83,11 +83,11 @@
                         <div
                             class="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-green-700 flex items-center justify-center">
                             <span class="text-white text-sm font-semibold">
-                                {{ strtoupper(substr(auth()->user()->full_name, 0, 2)) }}
+                                {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
                             </span>
                         </div>
                         <div class="ml-3 text-left hidden md:block">
-                            <p class="text-sm font-medium text-gray-900">{{ auth()->user()->full_name }}</p>
+                            <p class="text-sm font-medium text-gray-900">{{ auth()->user()->name }}</p>
                             <p class="text-xs text-gray-500">
                                 @if (auth()->user()->isAdmin())
                                     <i class="fas fa-shield-alt mr-1"></i> Admin

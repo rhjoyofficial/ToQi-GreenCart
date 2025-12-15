@@ -9,7 +9,7 @@
 
     <title>
         @hasSection('title')
-            @yield('title') - {{ config('app.name', ' - Green Cart') }}
+            {{ config('app.name', 'Green Cart') }} - @yield('title')
         @endif
     </title>
 

@@ -17,7 +17,7 @@
         <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-sm p-6 text-white">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-2xl font-bold mb-2">Hello, {{ auth()->user()->full_name }}!</h2>
+                    <h2 class="text-2xl font-bold mb-2">Hello, {{ auth()->user()->name }}!</h2>
                     <p class="text-green-100">Discover fresh organic products from local sellers</p>
                 </div>
                 <div class="p-3 bg-white/20 rounded-lg">
@@ -90,7 +90,7 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-lg font-bold text-gray-900">${{ number_format($product->price, 2) }}</p>
-                                    <p class="text-xs text-gray-500">By {{ $product->seller->full_name }}</p>
+                                    <p class="text-xs text-gray-500">By {{ $product->seller->name }}</p>
                                 </div>
                                 <button class="p-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition">
                                     <i class="fas fa-cart-plus"></i>

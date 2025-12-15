@@ -2,32 +2,36 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Frontend\HomeController as FrontendHomeController;
+use App\Http\Controllers\DashboardController;
 
 // Admin Controllers
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Frontend\ProductController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\AnalyticsController as AdminAnalyticsController;
+use App\Http\Controllers\Seller\OrderController as SellerOrderController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 
 // Seller Controllers
-use App\Http\Controllers\Seller\DashboardController as SellerDashboardController;
-use App\Http\Controllers\Seller\ProductController as SellerProductController;
-use App\Http\Controllers\Seller\OrderController as SellerOrderController;
-use App\Http\Controllers\Seller\AnalyticsController as SellerAnalyticsController;
+use App\Http\Controllers\Customer\CartController as CustomerCartController;
+use App\Http\Controllers\Frontend\HomeController as FrontendHomeController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Customer\OrderController as CustomerOrderController;
 
 // Customer Controllers
-use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
+use App\Http\Controllers\Seller\ProductController as SellerProductController;
+use App\Http\Controllers\Customer\CategoryController as CustomerCategoryController;
+use App\Http\Controllers\Customer\CheckoutController as CustomerCheckoutController;
+use App\Http\Controllers\Admin\AnalyticsController as AdminAnalyticsController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Customer\ProductController as CustomerProductController;
-use App\Http\Controllers\Customer\CartController as CustomerCartController;
-use App\Http\Controllers\Customer\OrderController as CustomerOrderController;
+use App\Http\Controllers\Seller\AnalyticsController as SellerAnalyticsController;
+use App\Http\Controllers\Seller\DashboardController as SellerDashboardController;
 use App\Http\Controllers\Customer\WishlistController as CustomerWishlistController;
+use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,11 +45,11 @@ use App\Http\Controllers\Customer\WishlistController as CustomerWishlistControll
 */
 
 // Public Routes
-Route::get('/', function () {
-    return redirect()->route('dashboard');
-})->name('home');
+// Route::get('/', function () {
+//     return redirect()->route('dashboard');
+// })->name('home');
 
-Route::get('/website', [FrontendHomeController::class, 'index'])->name('website');
+Route::get('/', [FrontendHomeController::class, 'index'])->name('home');
 
 // About Us
 Route::get('/about', [HomeController::class, 'about'])->name('about');
@@ -60,8 +64,13 @@ Route::get('/privacy', [HomeController::class, 'privacy'])->name('privacy');
 
 // Product Listing (Public)
 Route::get('/products', [CustomerProductController::class, 'index'])->name('products.index');
-Route::get('/products/{product}', [CustomerProductController::class, 'show'])->name('products.show');
-
+Route::get('/products/{slug}', [CustomerProductController::class, 'show'])->name('products.show');
+// Category Routes
+Route::get('/categories', [CustomerCategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories/{slug}', [CustomerCategoryController::class, 'show'])->name('categories.show');
+Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart.index');
+Route::get('/checkout', [CustomerCheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/process', [CustomerCheckoutController::class, 'process'])->name('checkout.process');
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes

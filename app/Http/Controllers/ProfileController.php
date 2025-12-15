@@ -17,7 +17,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'full_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'nullable|string|max:30',
             'address_line1' => 'nullable|string|max:255',
@@ -29,7 +29,7 @@ class ProfileController extends Controller
         ]);
 
         $user->update($request->only([
-            'full_name',
+            'name',
             'email',
             'phone',
             'address_line1',

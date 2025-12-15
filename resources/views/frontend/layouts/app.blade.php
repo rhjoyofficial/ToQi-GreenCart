@@ -5,19 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 
     <title>
         @hasSection('title')
-            @yield('title') - {{ config('app.name', 'E-Commerce') }}
-        @else
-            {{ config('app.name', 'E-Commerce Store') }}
+            {{ config('app.name', 'Green Cart') }} - @yield('title')
         @endif
     </title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+Bengali:wght@100..900&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,9 +26,7 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
     <!-- Core Styles -->
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endif
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('styles')
 </head>
@@ -126,7 +125,35 @@
             }
         });
     </script>
+    <script>
+        // Update cart count from local storage
+        function updateCartCount() {
+            const cartCount = localStorage.getItem('cartCount') || 0;
+            $('.cart-count').text(cartCount);
+        }
 
+        // Initialize cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+
+            // Add to cart functionality
+            $('.add-to-cart').on('click', function(e) {
+                e.preventDefault();
+                const productId = $(this).data('product-id');
+
+                // Get current cart count
+                let cartCount = parseInt(localStorage.getItem('cartCount') || 0);
+                cartCount++;
+                localStorage.setItem('cartCount', cartCount);
+
+                // Update cart count display
+                updateCartCount();
+
+                // Show success message
+                showToast('Product added to cart successfully!', 'success');
+            });
+        });
+    </script>
     @stack('scripts')
 </body>
 

@@ -15,9 +15,10 @@ class User extends Authenticatable
 
     protected $fillable = [
         'role_id',
-        'full_name',
+        'name',
         'email',
         'password',
+        'business_name',
         'phone',
         'address_line1',
         'address_line2',
@@ -38,10 +39,6 @@ class User extends Authenticatable
         'is_active' => 'boolean',
     ];
 
-    public function getNameAttribute()
-    {
-        return $this->full_name;
-    }
 
     public function role(): BelongsTo
     {

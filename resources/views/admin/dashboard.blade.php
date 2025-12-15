@@ -169,7 +169,7 @@
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-4 py-3 text-sm font-medium text-gray-900">
                                         #{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">{{ $order->customer->full_name }}</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">{{ $order->customer->name }}</td>
                                     <td class="px-4 py-3 text-sm font-medium text-gray-900">
                                         ${{ number_format($order->total_amount, 2) }}</td>
                                     <td class="px-4 py-3">

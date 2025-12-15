@@ -13,7 +13,7 @@ class UserFactory extends Factory
     {
         return [
             'role_id' => 3, // Default to customer
-            'full_name' => fake()->name(),
+            'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
@@ -41,7 +41,7 @@ class UserFactory extends Factory
     {
         return $this->state(fn(array $attributes) => [
             'role_id' => 1,
-            'full_name' => 'Admin ' . fake()->name(),
+            'name' => 'Admin ' . fake()->name(),
         ]);
     }
 
@@ -49,7 +49,7 @@ class UserFactory extends Factory
     {
         return $this->state(fn(array $attributes) => [
             'role_id' => 2,
-            'full_name' => fake()->company() . ' Seller',
+            'name' => fake()->company() . ' Seller',
         ]);
     }
 

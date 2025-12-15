@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name', 100);
+            $table->string('name', 100);
             $table->string('email', 150)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignId('role_id')->constrained()->onDelete('cascade');
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('postal_code', 20)->nullable();
             $table->string('country', 100)->nullable();
             $table->boolean('is_active')->default(true);
+            $table->string('business_name', 100)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

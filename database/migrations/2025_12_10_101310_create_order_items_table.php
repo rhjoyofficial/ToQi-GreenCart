@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('unit_price', 10, 2);
-            $table->decimal('line_total', 10, 2);
+            $table->decimal('total_price', 10, 2);
             $table->timestamps();
         });
     }
