@@ -139,7 +139,7 @@
                                         @if ($shipping == 0)
                                             <span class="text-green-600">Free</span>
                                         @else
-                                            ${{ number_format($shipping, 2) }}
+                                            <span class="font-bengali">৳</span>{{ number_format($shipping, 2) }}
                                         @endif
                                     </span>
                                 </div>

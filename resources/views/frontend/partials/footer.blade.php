@@ -51,15 +51,20 @@
             <div>
                 <h3 class="text-lg font-semibold mb-6">Customer Service</h3>
                 <ul class="space-y-3">
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Contact
+                    <li><a href="{{ route('contact') }}"
+                            class="text-gray-400 hover:text-white transition-colors duration-200">Contact
                             Us</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">FAQs</a>
+                    <li><a href="{{ route('faqs') }}"
+                            class="text-gray-400 hover:text-white transition-colors duration-200">FAQs</a>
                     </li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Shipping
+                    <li><a href="{{ route('shipping.policy') }}"
+                            class="text-gray-400 hover:text-white transition-colors duration-200">Shipping
                             Policy</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Return
+                    <li><a href="{{ route('return.policy') }}"
+                            class="text-gray-400 hover:text-white transition-colors duration-200">Return
                             Policy</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Privacy
+                    <li><a href="{{ route('privacy.policy') }}"
+                            class="text-gray-400 hover:text-white transition-colors duration-200">Privacy
                             Policy</a></li>
                 </ul>
             </div>

@@ -25,15 +25,17 @@
         </div>
 
         <!-- Products Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             @foreach ($products as $product)
                 <div
                     class="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden animate-slide-up">
                     <!-- Product Image -->
                     <div class="relative overflow-hidden aspect-square">
-                        <img src="{{ $product->image ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' }}"
-                            alt="{{ $product->name }}"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <a href="{{ route('products.show', $product->slug) }}">
+                            <img src="{{ $product->image ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80' }}"
+                                alt="{{ $product->name }}"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </a>
                         <!-- Badge -->
                         @if ($product->stock_quantity > 0)
                             <span
@@ -53,8 +55,9 @@
                                 class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-200">
                                 <i class="fas fa-heart"></i>
                             </button>
-                            <button
-                                class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-200">
+                            <button onclick="window.location='{{ route('products.show', $product->slug) }}'"
+                                class="w-10 h-10 bg-white rounded-full shadow flex items-center justify-center hover:bg-primary-600 hover:text-white transition-colors duration-200"
+                                title="View product">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -63,14 +66,19 @@
                     <!-- Product Info -->
                     <div class="p-6">
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-sm text-gray-500">{{ $product->category->name ?? 'Uncategorized' }}</span>
+                            <a href="{{ route('categories.show', $product->category->slug ?? '#') }}"
+                                class="text-sm text-primary-600 font-medium hover:underline">
+                                <span
+                                    class="text-sm text-gray-500">{{ $product->category->name ?? 'Uncategorized' }}</span>
+                            </a>
                             <div class="flex items-center">
                                 <i class="fas fa-star text-yellow-400 text-sm"></i>
                                 <span class="text-sm text-gray-600 ml-1">4.5</span>
                             </div>
                         </div>
-
-                        <h3 class="font-semibold text-gray-900 mb-2 line-clamp-1">{{ $product->name }}</h3>
+                        <a href="{{ route('products.show', $product->slug) }}">
+                            <h3 class="font-semibold text-gray-900 mb-2 line-clamp-1">{{ $product->name }}</h3>
+                        </a>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ $product->description }}</p>
 
                         <div class="flex items-center justify-between">
@@ -83,9 +91,13 @@
                                 @endif
                             </div>
                             <button data-product-id="{{ $product->id }}"
-                                class="add-to-cart flex items-center justify-center w-10 h-10 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                class="relative group add-to-cart flex items-center justify-center w-10 h-10 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                                 {{ $product->stock_quantity == 0 ? 'disabled' : '' }}>
                                 <i class="fas fa-shopping-cart"></i>
+                                <span
+                                    class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded px-2 py-1 text-xs {{ $product->stock_quantity == 0 ? 'bg-red-600 text-white' : 'bg-green-600 text-white' }} opacity-0 group-hover:opacity-100 transition pointer-events-none">
+                                    {{ $product->stock_quantity == 0 ? 'Out of stock' : 'Add to cart' }}
+                                </span>
                             </button>
                         </div>
                     </div>

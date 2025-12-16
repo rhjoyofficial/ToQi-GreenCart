@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('seller.layouts.app')
 
 @section('title', 'Seller Dashboard')
 
@@ -72,7 +72,8 @@
                     <div>
                         <p class="text-sm font-medium text-gray-600">Total Sales</p>
                         <p class="text-3xl font-bold text-gray-900 mt-2">
-                            ${{ number_format(auth()->user()->sellerOrders()->sum('line_total'), 2) }}
+                            <span
+                                class="font-bengali">৳</span>{{ number_format(auth()->user()->sellerOrders()->sum('total_price'), 2) }}
                         </p>
                         <div class="flex items-center mt-2">
                             <span class="text-xs text-green-600">
@@ -92,7 +93,8 @@
                     <div>
                         <p class="text-sm font-medium text-gray-600">Stock Value</p>
                         <p class="text-3xl font-bold text-gray-900 mt-2">
-                            ${{ number_format(auth()->user()->products()->sum(\DB::raw('price * stock_quantity')), 2) }}
+                            <span
+                                class="font-bengali">৳</span>{{ number_format(auth()->user()->products()->sum(\DB::raw('price * stock_quantity')), 2) }}
                         </p>
                         <div class="flex items-center mt-2">
                             <span class="text-xs text-red-600">
@@ -178,7 +180,8 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="font-medium text-gray-900">${{ number_format($product->price, 2) }}</p>
+                                <p class="font-medium text-gray-900"><span
+                                        class="font-bengali">৳</span>{{ number_format($product->price, 2) }}</p>
                                 <span
                                     class="text-xs px-2 py-1 rounded-full {{ $product->is_active ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
                                     {{ $product->is_active ? 'Active' : 'Inactive' }}
@@ -233,8 +236,8 @@
                             </div>
                             <div class="flex items-center justify-between text-sm">
                                 <span class="text-gray-600">{{ $orderItem->product->name }}</span>
-                                <span
-                                    class="font-medium text-gray-900">${{ number_format($orderItem->line_total, 2) }}</span>
+                                <span class="font-medium text-gray-900"><span
+                                        class="font-bengali">৳</span>{{ number_format($orderItem->line_total, 2) }}</span>
                             </div>
                         </div>
                     @empty

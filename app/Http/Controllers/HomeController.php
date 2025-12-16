@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    // Existing Methods...
     public function index()
     {
         return view('home');
@@ -18,7 +19,7 @@ class HomeController extends Controller
 
     public function contact()
     {
-        return view('contact');
+        return view('frontend.pages.contact');
     }
 
     public function contactSubmit(Request $request)
@@ -29,19 +30,30 @@ class HomeController extends Controller
             'message' => 'required',
         ]);
 
-        // Process contact form submission
-        // Send email, save to database, etc.
-
         return back()->with('success', 'Thank you for your message. We will get back to you soon!');
     }
 
-    public function terms()
+    public function faqs()
     {
-        return view('terms');
+        return view('frontend.pages.faqs');
+    }
+
+    public function shippingPolicy()
+    {
+        return view('frontend.pages.shipping');
+    }
+
+    public function returnPolicy()
+    {
+        return view('frontend.pages.returns');
     }
 
     public function privacy()
     {
-        return view('privacy');
+        return view('frontend.pages.privacy');
+    }
+    public function contactPage()
+    {
+        return view('frontend.pages.contact');
     }
 }

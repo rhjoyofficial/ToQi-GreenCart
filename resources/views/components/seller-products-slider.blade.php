@@ -79,8 +79,10 @@
 
                             <!-- Product Info -->
                             <div>
-                                <span
+                                <a class="hover:underline text-xs"
+                                    href="{{ route('categories.show', $product->category->slug ?? '#') }}" <span
                                     class="text-xs text-gray-500">{{ $product->category->name ?? 'Uncategorized' }}</span>
+                                </a>
                                 <a href="{{ route('products.show', $product->slug) }}" class="block">
                                     <h4
                                         class="font-medium text-gray-900 mt-1 hover:text-primary-600 transition-colors duration-200 line-clamp-2">

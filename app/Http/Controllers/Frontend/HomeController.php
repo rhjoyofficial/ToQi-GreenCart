@@ -16,7 +16,7 @@ class HomeController extends Controller
         $products = Product::with('category')
             ->where('is_active', true)
             ->latest()
-            ->take(8)
+            ->take(10)
             ->get();
 
         // Get sellers with their products

@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('frontend.layouts.app')
 
 @section('title', 'About Us - GreenCart')
 
@@ -8,7 +8,7 @@
             <!-- Hero Section -->
             <div class="text-center mb-16">
                 <h1 class="text-4xl font-bold text-gray-900 mb-6">About GreenCart</h1>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                <p class="text-lg text-gray-600 max-w-4xl mx-auto">
                     We're building a bridge between conscious consumers and local organic producers to create
                     a sustainable marketplace that benefits everyone.
                 </p>

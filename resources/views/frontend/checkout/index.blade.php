@@ -46,23 +46,18 @@
                             <div class="p-6">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                                        <input type="text" name="first_name" required
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                                        <input type="text" name="name" required placeholder="Enter Your Full Name"
                                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                                        <input type="text" name="last_name" required
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                        <input type="email" name="email" placeholder="Enter Your Email Address"
                                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                                     </div>
-                                    <div class="md:col-span-2">
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                                        <input type="email" name="email" required
-                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                                    </div>
-                                    <div class="md:col-span-2">
+                                    <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                                        <input type="tel" name="phone" required
+                                        <input type="tel" name="phone" required placeholder="Enter Your Phone Number"
                                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                                     </div>
                                 </div>
@@ -101,9 +96,7 @@
                                         <select name="country" required
                                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
                                             <option value="">Select Country</option>
-                                            <option value="US">United States</option>
-                                            <option value="CA">Canada</option>
-                                            <option value="GB">United Kingdom</option>
+                                            <option value="bn" selected>Bangladesh</option>
                                         </select>
                                     </div>
                                 </div>
@@ -235,7 +228,7 @@
                                             @if ($shipping == 0)
                                                 <span class="text-green-600">Free</span>
                                             @else
-                                                ${{ number_format($shipping, 2) }}
+                                                <span class="font-bengali">৳</span>{{ number_format($shipping, 2) }}
                                             @endif
                                         </span>
                                     </div>
